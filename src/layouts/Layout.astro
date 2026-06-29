@@ -1,0 +1,97 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "South Florida Injury Centers | Chiropractic Care After an Accident",
+  description = "Injured in a car accident? South Florida Injury Centers provides expert chiropractic treatment in Tamarac and Port Saint Lucie. Same-day appointments. We work with your attorney.",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sflchiro.com/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sflchiro.com/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Brand colors pulled directly from the logo */
+    --teal-dark:   #0B6E7A;   /* deep teal — S letterform */
+    --teal-mid:    #1BAFC4;   /* ocean teal — wave */
+    --teal-light:  #5DCFDF;   /* sky teal — upper wave */
+    --gold:        #C9A227;   /* sun rays */
+    --gold-light:  #E8C255;   /* sun highlight */
+    --navy:        #1B3A5C;   /* wordmark dark */
+    --off-white:   #F4F8F9;   /* near-white with teal tint */
+    --slate:       #4A6070;
+    --slate-light: #7A90A0;
+    --white:       #FFFFFF;
+
+    /* Gradients */
+    --grad-teal: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-mid) 60%, var(--teal-light) 100%);
+    --grad-gold: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--navy);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>

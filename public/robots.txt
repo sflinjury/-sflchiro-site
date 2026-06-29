@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sflchiro.com/sitemap-index.xml
